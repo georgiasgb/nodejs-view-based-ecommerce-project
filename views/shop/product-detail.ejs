@@ -1,0 +1,20 @@
+<%- include('../partials/head-layout.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../partials/header-layout.ejs') %>
+
+        <main class="centered">
+            <h1>Details - <%= product.pName %></h1>
+            <hr>
+            <div class="image">
+                <img src="<%= product.pImageUrl %>" alt="<%= product.pName %>">
+            </div>
+            <h2><%= product.pPrice %></h2>
+            <p><%= product.pDescription %></p>
+            <% if(isLoggedIn) { %>
+                <%- include('../partials/add-to-cart.ejs', {product: product}) %>
+            <% } %>
+        </main>
+<%- include('../partials/end-layout.ejs') %>

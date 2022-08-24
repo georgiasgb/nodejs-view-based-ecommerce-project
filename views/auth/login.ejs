@@ -1,0 +1,31 @@
+<%- include('../partials/head-layout.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css"> 
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+ 
+<body>
+   <%- include('../partials/header-layout.ejs') %>
+
+    <main>
+        <% if (errorMessage) { %>
+            <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } %>
+        <form class="login-form" action="/login" method="POST" novalidate>
+            <div class="form-control">
+                <label for="email">E-Mail</label>
+                <input type="email" name="email" id="email" value="<%= oldInputs.email%>"
+                class="<%= typeErrors.includes('email')  ? 'invalid' : '' %>">
+            </div>
+            <div class="form-control">
+                <label for="password">Password</label> 
+                <input type="password" name="password" id="password" value="<%= oldInputs.password%>"
+                class="<%= typeErrors.includes('password')  ? 'invalid' : '' %>">
+            </div>
+            <button class="btn" type="submit">Login</button>
+            <input type="hidden" name="_csrf" value="<%= csrfToken%>">
+        </form>
+        <div class="centered">
+            <a href="/reset">Reset Password</a>
+        </div>
+    </main>
+<%- include('../partials/end-layout.ejs') %>

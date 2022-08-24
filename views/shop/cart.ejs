@@ -1,0 +1,48 @@
+<%- include('../partials/head-layout.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../partials/header-layout.ejs') %>
+
+            <main>
+                <h1>My Cart</h1>
+                <% if (cart.length> 0) { %>
+                    <div class="centered">
+                        <a class="btn" href="/checkout">Order Now</a>
+                    </div>
+                    <hr>
+                    <div class="grid">
+                        <% for (let cartItem of cart) { %>
+                            <article class="card product-item">
+                                <header class="card__header">
+                                    <h1 class="product__title">
+                                        <%= cartItem.productId.pName%>
+                                            (X <%= cartItem.productQtd%>)
+                                    </h1>
+                                </header>
+                                <div class="card__image">
+                                    <img src="/<%= cartItem.productId.pImageUrl%>" alt="A Book">
+                                </div> 
+                                <div class="card__content">
+                                    <h2 class="product__price">
+                                        <%= cartItem.productId.pPrice%>
+                                    </h2>
+                                    <p class="product__description">
+                                        <%= cartItem.productId.pDescription %>
+                                    </p>
+                                </div>
+                                <div class="card__actions">
+                                    <form action="/cart/delete-cart-item/<%=cartItem.productId._id%>" method="post">
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken%>">
+                                        <button class="btn btn-danger" type="submit">Delete Product</button>
+                                    </form>
+                                </div>
+                            </article>
+                            <% } %>
+                    </div>
+                    <% } else { %>
+                        <h2 class="nothing-added">No Products Added Yet</h2>
+                    <% } %>
+            </main>
+            <%- include('../partials/end-layout.ejs') %>

@@ -1,0 +1,51 @@
+<%- include('../partials/head-layout.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+    <%- include('../partials/header-layout.ejs') %>
+    <main>
+        <% if (errorMessage) { %>
+            <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } %>
+        <form class="product-form" action="<% if(editing) { %> /admin/update-product/<%=product._id%> <%} else {%> /admin/add-product <%} %>"
+            method="post" enctype="multipart/form-data">
+            <h3>Product: </h3>
+            <div class="form-control">
+                <label for="pName">Name:</label>
+                <input type="text" name="pName" id="pName" 
+                value="<%= (editing || typeErrors) ? product.pName : '' %>"
+                class="<%= typeErrors.includes('pName') ? 'invalid' : '' %>">
+            </div>
+            <!-- <div class="form-control">
+                <label for="pImageUrl">Image URL</label>
+                <input type="text" name="pImageUrl" id="pImageUrl" 
+                value="<%= (editing || typeErrors) ? product.pImageUrl : ''%>"
+                class="<%= typeErrors.includes('pImageUrl')  ? 'invalid' : '' %>">
+            </div> -->
+            <div class="form-control">
+                <label for="pImage">Image</label>
+                <input type="file" name="pImage" id="pImage"
+                class="<%= typeErrors.includes('pImage')  ? 'invalid' : '' %>">
+            </div> 
+            <div class="form-control">
+                <label for="pPrice">Price</label>
+                <input type="number" name="pPrice" id="pPrice" step="0.01" 
+                value="<%= (editing || typeErrors) ? product.pPrice : '' %>"
+                class="<%= typeErrors.includes('pPrice')  ? 'invalid' : '' %>">
+            </div>
+            <div class="form-control">
+                <label for="pDescription">Description</label>
+                <textarea name="pDescription" id="pDescription" rows="5" 
+                value="<%= (editing || typeErrors) ? product.pDescription : ''%>"
+                class="<%= typeErrors.includes('pDescription')  ? 'invalid' : '' %>">
+                    <%=(editing || typeErrors) ? product.pDescription: ''%>
+                </textarea>
+            </div>
+
+            <button class="btn" type="submit"> <%= editing ? 'Save Product' : 'Add Product' %></button>
+            <input type="hidden" name="_csrf" value="<%= csrfToken%>">
+        </form>
+    </main>
+<%- include('../partials/end-layout.ejs') %> 

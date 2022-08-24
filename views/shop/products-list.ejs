@@ -1,0 +1,46 @@
+<%- include('../partials/head-layout.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../partials/header-layout.ejs') %>
+
+            <main>
+                <h1>My Products</h1>
+                <div class="grid">
+                    <% if (prods.length> 0) { %>
+                        <% for (let product of prods) { %>
+                            <article class="card product-item">
+                                <header class="card__header">
+                                    <h1 class="product__title">
+                                        <%= product.pName%>
+                                    </h1>
+                                </header>
+                                <div class="card__image">
+                                    <img src="/<%= product.pImageUrl%>" alt="<%= product.pName%>">
+                                </div>
+                                <div class="card__content">
+                                    <h2 class="product__price">
+                                        <%= product.pPrice%>
+                                    </h2>
+                                    <p class="product__description">
+                                        <%= product.pDescription %>
+                                    </p>
+                                </div>
+                                <div class="card__actions">
+                                    <a href="/product-detail/<%= product._id %>" class="btn">Details</a>
+                                    <% if(isLoggedIn) { %>
+                                        <p></p>
+                                        <%- include('../partials/add-to-cart.ejs', {product: product}) %>
+                                    <% } %>
+                                </div>
+                            </article>
+                        <% } %>
+                    <% } else { %>
+                        <h2 class="nothing-added">No Products Added</h2>
+                    <% } %>
+                </div>
+                <%- include('../partials/pagination.ejs', {currentPage: currentPage, nextPage: nextPage, previousPage: previousPage, lastPage: lastPage, hasNextPage: hasNextPage, hasPreviousPage: hasPreviousPage}) %>
+            </main>
+<%- include('../partials/end-layout.ejs') %>
+                                

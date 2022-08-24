@@ -1,0 +1,22 @@
+How to use
+----------
+
+Run "npm install" inside this project folder to install all dependencies.
+
+Run "npm start" to see the app in action.
+
+
+Additional configuration
+------------------------
+
+-> MongoDB
+
+To connect to the MongoDB, it is necessary to set the connection url to the database in the variable MONGODB_URL in the app.js file.
+
+-> Send email
+
+To sending emails when the user registers or need to reset the password, it is necessary to put the values for 'user' and 'pass' provided by MAILTRAP in the auth_controller.js file.
+
+-> Payment
+
+To use checkout payment, you must enter your STRIPE private key in the stripe variable in the shop_controller.js file.
